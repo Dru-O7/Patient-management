@@ -13,16 +13,17 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = "patient", groupId = "analytics-service")
     public void consumeEvent(byte[] event) {
-        log.info("Kafka listener triggered, received {} bytes", event.length);
         try {
-            PatientEvent patientEvent = PatientEvent.parseFrom(event);
-            log.info("Received patient event: [PatientId={}, PatientName={}, PatientEmail={}]",
+            PatientEvent patientEvent=PatientEvent.parseFrom(event);
+
+            log.info("Received Patient Event: [PatientId={}, PatientName={}, PatientEmail={}]",
                     patientEvent.getPatientId(),
                     patientEvent.getName(),
                     patientEvent.getEmail());
         } catch (InvalidProtocolBufferException e) {
-            log.error("Error deserializing event {}", e.getMessage());
+            log.error("Error deserializing event: {}", e.getMessage());
         }
+
     }
 
 }
