@@ -16,5 +16,3 @@ SELECT '223e4567-e89b-12d3-a456-426614174006', 'testuser@test.com',
     WHERE id = '223e4567-e89b-12d3-a456-426614174006'
        OR email = 'testuser@test.com'
 );
-
-
