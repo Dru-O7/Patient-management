@@ -1,5 +1,4 @@
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -36,5 +35,27 @@ public class AuthIntegrationTest {
                 .extract().response();
 
         System.out.println("Generated Token: " + response.jsonPath().getString("token"));
+    }
+
+    @Test
+    public void shouldReturnUnauthorizedInvalidLogin() {
+
+        String LoginPayload= """
+                    {
+                        "email":"invaliduser@test.com",
+                        "password":"wrongPassword123"
+                    }
+                """;
+
+        given()
+                .contentType("application/json")
+                .body(LoginPayload)
+                .when()
+                .post("/auth/login")
+                .then()
+                .statusCode(401)
+                ;
+
+        System.out.println("Tested Invalid Login");
     }
 }
