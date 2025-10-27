@@ -36,6 +36,25 @@ public class LocalStack extends Stack {
         CfnCluster mskCluster=createMskCluster();
 
         this.ecsCluster=createEcsCluster();
+
+        FargateService authService=createFargateService("AuthService",
+                "auth-service",
+                List.of(4005),
+                authServiceDb,
+                Map.of("JWT_SECRET","joh6bVA9K52EIr7AM25tqXvlcUYjClSU6hcDmg7JBIA=")
+        );
+
+        authService.getNode().addDependency(authDbHealthCheck);
+        authService.getNode().addDependency(authServiceDb);
+
+        FargateService billingService=createFargateService("BillingService",
+                "billing-service",
+                List.of(4001,9001),
+                null,
+                null
+        );
+
+
     }
 
     private Vpc createVpc() {
