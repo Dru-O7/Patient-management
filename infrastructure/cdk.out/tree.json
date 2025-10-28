@@ -660,21 +660,21 @@
               "metadata": []
             }
           },
-          "AutServiceDB": {
-            "id": "AutServiceDB",
-            "path": "localstack/AutServiceDB",
+          "AuthServiceDB": {
+            "id": "AuthServiceDB",
+            "path": "localstack/AuthServiceDB",
             "children": {
               "SubnetGroup": {
                 "id": "SubnetGroup",
-                "path": "localstack/AutServiceDB/SubnetGroup",
+                "path": "localstack/AuthServiceDB/SubnetGroup",
                 "children": {
                   "Default": {
                     "id": "Default",
-                    "path": "localstack/AutServiceDB/SubnetGroup/Default",
+                    "path": "localstack/AuthServiceDB/SubnetGroup/Default",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
                       "aws:cdk:cloudformation:props": {
-                        "dbSubnetGroupDescription": "Subnet group for AutServiceDB database",
+                        "dbSubnetGroupDescription": "Subnet group for AuthServiceDB database",
                         "subnetIds": [
                           {
                             "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
@@ -699,15 +699,15 @@
               },
               "SecurityGroup": {
                 "id": "SecurityGroup",
-                "path": "localstack/AutServiceDB/SecurityGroup",
+                "path": "localstack/AuthServiceDB/SecurityGroup",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AutServiceDB/SecurityGroup/Resource",
+                    "path": "localstack/AuthServiceDB/SecurityGroup/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                       "aws:cdk:cloudformation:props": {
-                        "groupDescription": "Security group for AutServiceDB database",
+                        "groupDescription": "Security group for AuthServiceDB database",
                         "securityGroupEgress": [
                           {
                             "cidrIp": "0.0.0.0/0",
@@ -734,11 +734,11 @@
               },
               "Secret": {
                 "id": "Secret",
-                "path": "localstack/AutServiceDB/Secret",
+                "path": "localstack/AuthServiceDB/Secret",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/AutServiceDB/Secret/Resource",
+                    "path": "localstack/AuthServiceDB/Secret/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::SecretsManager::Secret",
                       "aws:cdk:cloudformation:props": {
@@ -768,19 +768,19 @@
                   },
                   "Attachment": {
                     "id": "Attachment",
-                    "path": "localstack/AutServiceDB/Secret/Attachment",
+                    "path": "localstack/AuthServiceDB/Secret/Attachment",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/AutServiceDB/Secret/Attachment/Resource",
+                        "path": "localstack/AuthServiceDB/Secret/Attachment/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::SecretsManager::SecretTargetAttachment",
                           "aws:cdk:cloudformation:props": {
                             "secretId": {
-                              "Ref": "localstackAutServiceDBSecretD5A0E7813fdaad7efa858a3daf9490cf0a702aeb"
+                              "Ref": "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb"
                             },
                             "targetId": {
-                              "Ref": "AutServiceDB223757A5"
+                              "Ref": "AuthServiceDBC6B688BA"
                             },
                             "targetType": "AWS::RDS::DBInstance"
                           }
@@ -806,7 +806,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/AutServiceDB/Resource",
+                "path": "localstack/AuthServiceDB/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
                   "aws:cdk:cloudformation:props": {
@@ -815,7 +815,7 @@
                     "dbInstanceClass": "db.t2.micro",
                     "dbName": "auth-service-db",
                     "dbSubnetGroupName": {
-                      "Ref": "AutServiceDBSubnetGroup4AC5B2BD"
+                      "Ref": "AuthServiceDBSubnetGroupCFE5A552"
                     },
                     "engine": "postgres",
                     "engineVersion": "17.2",
@@ -826,7 +826,7 @@
                         [
                           "{{resolve:secretsmanager:",
                           {
-                            "Ref": "localstackAutServiceDBSecretD5A0E7813fdaad7efa858a3daf9490cf0a702aeb"
+                            "Ref": "localstackAuthServiceDBSecretE93C53FD3fdaad7efa858a3daf9490cf0a702aeb"
                           },
                           ":SecretString:password::}}"
                         ]
@@ -836,7 +836,7 @@
                     "vpcSecurityGroups": [
                       {
                         "Fn::GetAtt": [
-                          "AutServiceDBSecurityGroupEEC03ABA",
+                          "AuthServiceDBSecurityGroupBE6D28EB",
                           "GroupId"
                         ]
                       }
@@ -1061,13 +1061,13 @@
                   "failureThreshold": 3,
                   "ipAddress": {
                     "Fn::GetAtt": [
-                      "AutServiceDB223757A5",
+                      "AuthServiceDBC6B688BA",
                       "Endpoint.Address"
                     ]
                   },
                   "port": {
                     "Fn::GetAtt": [
-                      "AutServiceDB223757A5",
+                      "AuthServiceDBC6B688BA",
                       "Endpoint.Port"
                     ]
                   },
@@ -1128,7 +1128,7 @@
                   "instanceType": "kafka.m5.xlarge",
                   "brokerAzDistribution": "DEFAULT"
                 },
-                "clusterName": "kafka-cluster",
+                "clusterName": "kafa-cluster",
                 "kafkaVersion": "2.8.0",
                 "numberOfBrokerNodes": 1
               }
@@ -1275,7 +1275,7 @@
                           },
                           {
                             "name": "JWT_SECRET",
-                            "value": "joh6bVA9K52EIr7AM25tqXvlcUYjClSU6hcDmg7JBIA="
+                            "value": "Y2hhVEc3aHJnb0hYTzMyZ2ZqVkpiZ1RkZG93YWxrUkM="
                           },
                           {
                             "name": "SPRING_DATASOURCE_URL",
@@ -1286,18 +1286,18 @@
                                   "jdbc:postgresql://",
                                   {
                                     "Fn::GetAtt": [
-                                      "AutServiceDB223757A5",
+                                      "AuthServiceDBC6B688BA",
                                       "Endpoint.Address"
                                     ]
                                   },
                                   ":",
                                   {
                                     "Fn::GetAtt": [
-                                      "AutServiceDB223757A5",
+                                      "AuthServiceDBC6B688BA",
                                       "Endpoint.Port"
                                     ]
                                   },
-                                  "/auth-service"
+                                  "/auth-service-db"
                                 ]
                               ]
                             }
@@ -1310,7 +1310,7 @@
                                 [
                                   "{{resolve:secretsmanager:",
                                   {
-                                    "Ref": "AutServiceDBSecretAttachmentFC1CA310"
+                                    "Ref": "AuthServiceDBSecretAttachmentF30406A9"
                                   },
                                   ":SecretString:password::}}"
                                 ]
@@ -1331,7 +1331,7 @@
                           },
                           {
                             "name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-                            "value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+                            "value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
                           }
                         ]
                       }
@@ -1681,7 +1681,7 @@
                         "environment": [
                           {
                             "name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-                            "value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+                            "value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
                           }
                         ]
                       }
@@ -2026,7 +2026,7 @@
                         "environment": [
                           {
                             "name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-                            "value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+                            "value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
                           }
                         ]
                       }
@@ -2397,7 +2397,7 @@
                                       "Endpoint.Port"
                                     ]
                                   },
-                                  "/patient-service"
+                                  "/patient-service-db"
                                 ]
                               ]
                             }
@@ -2431,7 +2431,7 @@
                           },
                           {
                             "name": "SPRING_KAFKA_BOOTSTRAP_SERVERS",
-                            "value": "localhost.localstack.cloud:4510,localhost.localstack.cloud:4511,localhost.localstack.cloud:4512"
+                            "value": "localhost.localstack.cloud:4510, localhost.localstack.cloud:4511, localhost.localstack.cloud:4512"
                           },
                           {
                             "name": "BILLING_SERVICE_ADDRESS",
@@ -2698,17 +2698,17 @@
               "metadata": []
             }
           },
-          "ApiGatewayTaskDefinition": {
-            "id": "ApiGatewayTaskDefinition",
-            "path": "localstack/ApiGatewayTaskDefinition",
+          "APIGatewayTaskDefinition": {
+            "id": "APIGatewayTaskDefinition",
+            "path": "localstack/APIGatewayTaskDefinition",
             "children": {
               "TaskRole": {
                 "id": "TaskRole",
-                "path": "localstack/ApiGatewayTaskDefinition/TaskRole",
+                "path": "localstack/APIGatewayTaskDefinition/TaskRole",
                 "children": {
                   "ImportTaskRole": {
                     "id": "ImportTaskRole",
-                    "path": "localstack/ApiGatewayTaskDefinition/TaskRole/ImportTaskRole",
+                    "path": "localstack/APIGatewayTaskDefinition/TaskRole/ImportTaskRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -2717,7 +2717,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/ApiGatewayTaskDefinition/TaskRole/Resource",
+                    "path": "localstack/APIGatewayTaskDefinition/TaskRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -2749,7 +2749,7 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "localstack/ApiGatewayTaskDefinition/Resource",
+                "path": "localstack/APIGatewayTaskDefinition/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::ECS::TaskDefinition",
                   "aws:cdk:cloudformation:props": {
@@ -2757,7 +2757,7 @@
                       {
                         "essential": true,
                         "image": "api-gateway",
-                        "name": "ApiGatewayContainer",
+                        "name": "APIGatewayContainer",
                         "portMappings": [
                           {
                             "containerPort": 4004,
@@ -2779,12 +2779,12 @@
                         },
                         "environment": [
                           {
-                            "name": "AUTH_SERVICE_URL",
-                            "value": "http://host.docker.internal:4005"
-                          },
-                          {
                             "name": "SPRING_PROFILES_ACTIVE",
                             "value": "prod"
+                          },
+                          {
+                            "name": "AUTH_SERVICE_URL",
+                            "value": "http://host.docker.internal:4005"
                           }
                         ]
                       }
@@ -2792,11 +2792,11 @@
                     "cpu": "256",
                     "executionRoleArn": {
                       "Fn::GetAtt": [
-                        "ApiGatewayTaskDefinitionExecutionRoleE78CB745",
+                        "APIGatewayTaskDefinitionExecutionRole555CBA21",
                         "Arn"
                       ]
                     },
-                    "family": "localstackApiGatewayTaskDefinition2CA71C36",
+                    "family": "localstackAPIGatewayTaskDefinitionF109B4B7",
                     "memory": "512",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
@@ -2804,7 +2804,7 @@
                     ],
                     "taskRoleArn": {
                       "Fn::GetAtt": [
-                        "ApiGatewayTaskDefinitionTaskRole78FC06E2",
+                        "APIGatewayTaskDefinitionTaskRole894A199F",
                         "Arn"
                       ]
                     }
@@ -2815,9 +2815,9 @@
                   "version": "2.178.1"
                 }
               },
-              "ApiGatewayContainer": {
-                "id": "ApiGatewayContainer",
-                "path": "localstack/ApiGatewayTaskDefinition/ApiGatewayContainer",
+              "APIGatewayContainer": {
+                "id": "APIGatewayContainer",
+                "path": "localstack/APIGatewayTaskDefinition/APIGatewayContainer",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_ecs.ContainerDefinition",
                   "version": "2.178.1"
@@ -2825,11 +2825,11 @@
               },
               "ExecutionRole": {
                 "id": "ExecutionRole",
-                "path": "localstack/ApiGatewayTaskDefinition/ExecutionRole",
+                "path": "localstack/APIGatewayTaskDefinition/ExecutionRole",
                 "children": {
                   "ImportExecutionRole": {
                     "id": "ImportExecutionRole",
-                    "path": "localstack/ApiGatewayTaskDefinition/ExecutionRole/ImportExecutionRole",
+                    "path": "localstack/APIGatewayTaskDefinition/ExecutionRole/ImportExecutionRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
                       "version": "2.178.1",
@@ -2838,7 +2838,7 @@
                   },
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/ApiGatewayTaskDefinition/ExecutionRole/Resource",
+                    "path": "localstack/APIGatewayTaskDefinition/ExecutionRole/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::IAM::Role",
                       "aws:cdk:cloudformation:props": {
@@ -2863,11 +2863,11 @@
                   },
                   "DefaultPolicy": {
                     "id": "DefaultPolicy",
-                    "path": "localstack/ApiGatewayTaskDefinition/ExecutionRole/DefaultPolicy",
+                    "path": "localstack/APIGatewayTaskDefinition/ExecutionRole/DefaultPolicy",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/ApiGatewayTaskDefinition/ExecutionRole/DefaultPolicy/Resource",
+                        "path": "localstack/APIGatewayTaskDefinition/ExecutionRole/DefaultPolicy/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
                           "aws:cdk:cloudformation:props": {
@@ -2889,10 +2889,10 @@
                               ],
                               "Version": "2012-10-17"
                             },
-                            "policyName": "ApiGatewayTaskDefinitionExecutionRoleDefaultPolicy3FBBB1F9",
+                            "policyName": "APIGatewayTaskDefinitionExecutionRoleDefaultPolicy582C1C35",
                             "roles": [
                               {
-                                "Ref": "ApiGatewayTaskDefinitionExecutionRoleE78CB745"
+                                "Ref": "APIGatewayTaskDefinitionExecutionRole555CBA21"
                               }
                             ]
                           }
@@ -2949,17 +2949,17 @@
               "metadata": []
             }
           },
-          "ApiGatewayService": {
-            "id": "ApiGatewayService",
-            "path": "localstack/ApiGatewayService",
+          "APIGatewayService": {
+            "id": "APIGatewayService",
+            "path": "localstack/APIGatewayService",
             "children": {
               "LB": {
                 "id": "LB",
-                "path": "localstack/ApiGatewayService/LB",
+                "path": "localstack/APIGatewayService/LB",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "localstack/ApiGatewayService/LB/Resource",
+                    "path": "localstack/APIGatewayService/LB/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
                       "aws:cdk:cloudformation:props": {
@@ -2973,7 +2973,7 @@
                         "securityGroups": [
                           {
                             "Fn::GetAtt": [
-                              "ApiGatewayServiceLBSecurityGroup0E508841",
+                              "APIGatewayServiceLBSecurityGroup8524BFD1",
                               "GroupId"
                             ]
                           }
@@ -2996,15 +2996,15 @@
                   },
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "localstack/ApiGatewayService/LB/SecurityGroup",
+                    "path": "localstack/APIGatewayService/LB/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/ApiGatewayService/LB/SecurityGroup/Resource",
+                        "path": "localstack/APIGatewayService/LB/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "Automatically created Security Group for ELB localstackApiGatewayServiceLBD935C10B",
+                            "groupDescription": "Automatically created Security Group for ELB localstackAPIGatewayServiceLB0192615A",
                             "securityGroupIngress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -3024,23 +3024,23 @@
                           "version": "2.178.1"
                         }
                       },
-                      "to localstackApiGatewayServiceSecurityGroup47EA876B:4004": {
-                        "id": "to localstackApiGatewayServiceSecurityGroup47EA876B:4004",
-                        "path": "localstack/ApiGatewayService/LB/SecurityGroup/to localstackApiGatewayServiceSecurityGroup47EA876B:4004",
+                      "to localstackAPIGatewayServiceSecurityGroup37054EEE:4004": {
+                        "id": "to localstackAPIGatewayServiceSecurityGroup37054EEE:4004",
+                        "path": "localstack/APIGatewayService/LB/SecurityGroup/to localstackAPIGatewayServiceSecurityGroup37054EEE:4004",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
                           "aws:cdk:cloudformation:props": {
                             "description": "Load balancer to target",
                             "destinationSecurityGroupId": {
                               "Fn::GetAtt": [
-                                "ApiGatewayServiceSecurityGroup867C9DB1",
+                                "APIGatewayServiceSecurityGroup98F3B93B",
                                 "GroupId"
                               ]
                             },
                             "fromPort": 4004,
                             "groupId": {
                               "Fn::GetAtt": [
-                                "ApiGatewayServiceLBSecurityGroup0E508841",
+                                "APIGatewayServiceLBSecurityGroup8524BFD1",
                                 "GroupId"
                               ]
                             },
@@ -3062,11 +3062,11 @@
                   },
                   "PublicListener": {
                     "id": "PublicListener",
-                    "path": "localstack/ApiGatewayService/LB/PublicListener",
+                    "path": "localstack/APIGatewayService/LB/PublicListener",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/ApiGatewayService/LB/PublicListener/Resource",
+                        "path": "localstack/APIGatewayService/LB/PublicListener/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::Listener",
                           "aws:cdk:cloudformation:props": {
@@ -3074,12 +3074,12 @@
                               {
                                 "type": "forward",
                                 "targetGroupArn": {
-                                  "Ref": "ApiGatewayServiceLBPublicListenerECSGroup0BFE5495"
+                                  "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
                                 }
                               }
                             ],
                             "loadBalancerArn": {
-                              "Ref": "ApiGatewayServiceLB661D42EC"
+                              "Ref": "APIGatewayServiceLBDA2B7609"
                             },
                             "port": 80,
                             "protocol": "HTTP"
@@ -3092,11 +3092,11 @@
                       },
                       "ECSGroup": {
                         "id": "ECSGroup",
-                        "path": "localstack/ApiGatewayService/LB/PublicListener/ECSGroup",
+                        "path": "localstack/APIGatewayService/LB/PublicListener/ECSGroup",
                         "children": {
                           "Resource": {
                             "id": "Resource",
-                            "path": "localstack/ApiGatewayService/LB/PublicListener/ECSGroup/Resource",
+                            "path": "localstack/APIGatewayService/LB/PublicListener/ECSGroup/Resource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::ElasticLoadBalancingV2::TargetGroup",
                               "aws:cdk:cloudformation:props": {
@@ -3141,7 +3141,7 @@
               },
               "LoadBalancerDNS": {
                 "id": "LoadBalancerDNS",
-                "path": "localstack/ApiGatewayService/LoadBalancerDNS",
+                "path": "localstack/APIGatewayService/LoadBalancerDNS",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.178.1"
@@ -3149,7 +3149,7 @@
               },
               "ServiceURL": {
                 "id": "ServiceURL",
-                "path": "localstack/ApiGatewayService/ServiceURL",
+                "path": "localstack/APIGatewayService/ServiceURL",
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.CfnOutput",
                   "version": "2.178.1"
@@ -3157,11 +3157,11 @@
               },
               "Service": {
                 "id": "Service",
-                "path": "localstack/ApiGatewayService/Service",
+                "path": "localstack/APIGatewayService/Service",
                 "children": {
                   "Service": {
                     "id": "Service",
-                    "path": "localstack/ApiGatewayService/Service/Service",
+                    "path": "localstack/APIGatewayService/Service/Service",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::ECS::Service",
                       "aws:cdk:cloudformation:props": {
@@ -3184,9 +3184,9 @@
                         "loadBalancers": [
                           {
                             "targetGroupArn": {
-                              "Ref": "ApiGatewayServiceLBPublicListenerECSGroup0BFE5495"
+                              "Ref": "APIGatewayServiceLBPublicListenerECSGroupF9D8CC70"
                             },
-                            "containerName": "ApiGatewayContainer",
+                            "containerName": "APIGatewayContainer",
                             "containerPort": 4004
                           }
                         ],
@@ -3204,7 +3204,7 @@
                             "securityGroups": [
                               {
                                 "Fn::GetAtt": [
-                                  "ApiGatewayServiceSecurityGroup867C9DB1",
+                                  "APIGatewayServiceSecurityGroup98F3B93B",
                                   "GroupId"
                                 ]
                               }
@@ -3213,7 +3213,7 @@
                         },
                         "serviceName": "api-gateway",
                         "taskDefinition": {
-                          "Ref": "ApiGatewayTaskDefinitionBB9A2505"
+                          "Ref": "APIGatewayTaskDefinition199BB1B7"
                         }
                       }
                     },
@@ -3224,15 +3224,15 @@
                   },
                   "SecurityGroup": {
                     "id": "SecurityGroup",
-                    "path": "localstack/ApiGatewayService/Service/SecurityGroup",
+                    "path": "localstack/APIGatewayService/Service/SecurityGroup",
                     "children": {
                       "Resource": {
                         "id": "Resource",
-                        "path": "localstack/ApiGatewayService/Service/SecurityGroup/Resource",
+                        "path": "localstack/APIGatewayService/Service/SecurityGroup/Resource",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
                           "aws:cdk:cloudformation:props": {
-                            "groupDescription": "localstack/ApiGatewayService/Service/SecurityGroup",
+                            "groupDescription": "localstack/APIGatewayService/Service/SecurityGroup",
                             "securityGroupEgress": [
                               {
                                 "cidrIp": "0.0.0.0/0",
@@ -3250,9 +3250,9 @@
                           "version": "2.178.1"
                         }
                       },
-                      "from localstackApiGatewayServiceLBSecurityGroup008100C9:4004": {
-                        "id": "from localstackApiGatewayServiceLBSecurityGroup008100C9:4004",
-                        "path": "localstack/ApiGatewayService/Service/SecurityGroup/from localstackApiGatewayServiceLBSecurityGroup008100C9:4004",
+                      "from localstackAPIGatewayServiceLBSecurityGroup32B4CA42:4004": {
+                        "id": "from localstackAPIGatewayServiceLBSecurityGroup32B4CA42:4004",
+                        "path": "localstack/APIGatewayService/Service/SecurityGroup/from localstackAPIGatewayServiceLBSecurityGroup32B4CA42:4004",
                         "attributes": {
                           "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
                           "aws:cdk:cloudformation:props": {
@@ -3260,14 +3260,14 @@
                             "fromPort": 4004,
                             "groupId": {
                               "Fn::GetAtt": [
-                                "ApiGatewayServiceSecurityGroup867C9DB1",
+                                "APIGatewayServiceSecurityGroup98F3B93B",
                                 "GroupId"
                               ]
                             },
                             "ipProtocol": "tcp",
                             "sourceSecurityGroupId": {
                               "Fn::GetAtt": [
-                                "ApiGatewayServiceLBSecurityGroup0E508841",
+                                "APIGatewayServiceLBSecurityGroup8524BFD1",
                                 "GroupId"
                               ]
                             },
