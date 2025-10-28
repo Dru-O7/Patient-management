@@ -54,6 +54,29 @@ public class LocalStack extends Stack {
                 null
         );
 
+        FargateService analyticsService=
+                createFargateService("AnalyticsService",
+                        "analytics-service",
+                        List.of(4002),
+                        null,
+                        null
+                );
+        analyticsService.getNode().addDependency(mskCluster);
+
+        FargateService patientService=
+                createFargateService("PatientService",
+                        "patient-service",
+                        List.of(4000),
+                        patientServiceDb,
+                        Map.of(
+                                "BILLING_SERVICE_ADDRESS","host.docker.internal",
+                                "BILLING_SERVICE_GRPC_PORT","9001"
+                        ));
+        patientService.getNode().addDependency(patientServiceDb);
+        patientService.getNode().addDependency(patientDbHealthCheck);
+        patientService.getNode().addDependency(billingService);
+        patientService.getNode().addDependency(mskCluster);
+
 
     }
 
@@ -147,6 +170,7 @@ public class LocalStack extends Stack {
                                                 .removalPolicy(RemovalPolicy.DESTROY)
                                                 .retention(RetentionDays.ONE_DAY)
                                                 .build())
+                                        .streamPrefix(imageName)
                                 .build()));
 
         Map<String,String> envVars=new HashMap<>();
@@ -157,7 +181,7 @@ public class LocalStack extends Stack {
         }
 
         if (db!=null){
-            envVars.put("SPRING_DATASOURCE_URL", "jdbc:postgresql://%s:%s/%s-db".formatted(
+            envVars.put("SPRING_DATASOURCE_URL", "jdbc:postgresql://%s:%s/%s".formatted(
                     db.getDbInstanceEndpointAddress(),
                     db.getDbInstanceEndpointPort(),
                     imageName
@@ -179,6 +203,8 @@ public class LocalStack extends Stack {
                 .serviceName(imageName)
                 .build();
     }
+
+
 
 
     public static void main(String[] args) {
