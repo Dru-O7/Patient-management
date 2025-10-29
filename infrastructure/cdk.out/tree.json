@@ -1316,7 +1316,7 @@
                       ]
                     },
                     "family": "localstackAuthServiceTask4114E6CA",
-                    "memory": "512",
+                    "memory": "1024",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
                       "FARGATE"
@@ -1666,7 +1666,7 @@
                       ]
                     },
                     "family": "localstackBillingServiceTaskAB0446C6",
-                    "memory": "512",
+                    "memory": "1024",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
                       "FARGATE"
@@ -2011,7 +2011,7 @@
                       ]
                     },
                     "family": "localstackAnalyticsServiceTask353A5B10",
-                    "memory": "512",
+                    "memory": "1024",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
                       "FARGATE"
@@ -2420,7 +2420,7 @@
                       ]
                     },
                     "family": "localstackPatientServiceTask2770C053",
-                    "memory": "512",
+                    "memory": "1024",
                     "networkMode": "awsvpc",
                     "requiresCompatibilities": [
                       "FARGATE"
@@ -2751,12 +2751,12 @@
                         },
                         "environment": [
                           {
-                            "name": "AUTH_SERVICE_URL",
-                            "value": "http://host.docker.internal:4005"
-                          },
-                          {
                             "name": "SPRING_PROFILES_ACTIVE",
                             "value": "prod"
+                          },
+                          {
+                            "name": "AUTH_SERVICE_URL",
+                            "value": "http://host.docker.internal:4005"
                           }
                         ]
                       }

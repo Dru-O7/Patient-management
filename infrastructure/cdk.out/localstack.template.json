@@ -775,7 +775,7 @@
      ]
     },
     "Family": "localstackAuthServiceTask4114E6CA",
-    "Memory": "512",
+    "Memory": "1024",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
      "FARGATE"
@@ -986,7 +986,7 @@
      ]
     },
     "Family": "localstackBillingServiceTaskAB0446C6",
-    "Memory": "512",
+    "Memory": "1024",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
      "FARGATE"
@@ -1180,7 +1180,7 @@
      ]
     },
     "Family": "localstackAnalyticsServiceTask353A5B10",
-    "Memory": "512",
+    "Memory": "1024",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
      "FARGATE"
@@ -1438,7 +1438,7 @@
      ]
     },
     "Family": "localstackPatientServiceTask2770C053",
-    "Memory": "512",
+    "Memory": "1024",
     "NetworkMode": "awsvpc",
     "RequiresCompatibilities": [
      "FARGATE"
@@ -1612,12 +1612,12 @@
      {
       "Environment": [
        {
-        "Name": "AUTH_SERVICE_URL",
-        "Value": "http://host.docker.internal:4005"
-       },
-       {
         "Name": "SPRING_PROFILES_ACTIVE",
         "Value": "prod"
+       },
+       {
+        "Name": "AUTH_SERVICE_URL",
+        "Value": "http://host.docker.internal:4005"
        }
       ],
       "Essential": true,

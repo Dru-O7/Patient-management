@@ -174,7 +174,7 @@ public class LocalStack extends Stack {
         FargateTaskDefinition taskDefinition =
                 FargateTaskDefinition.Builder.create(this, id + "Task")
                         .cpu(256)
-                        .memoryLimitMiB(512)
+                        .memoryLimitMiB(1024)
                         .build();
 
         ContainerDefinitionOptions.Builder containerOptions =
