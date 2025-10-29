@@ -1110,34 +1110,6 @@
               "version": "2.178.1"
             }
           },
-          "MskCluster": {
-            "id": "MskCluster",
-            "path": "localstack/MskCluster",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::MSK::Cluster",
-              "aws:cdk:cloudformation:props": {
-                "brokerNodeGroupInfo": {
-                  "clientSubnets": [
-                    {
-                      "Ref": "PatientManagementVPCPrivateSubnet1Subnet05B10E79"
-                    },
-                    {
-                      "Ref": "PatientManagementVPCPrivateSubnet2Subnet8A2E409C"
-                    }
-                  ],
-                  "instanceType": "kafka.m5.xlarge",
-                  "brokerAzDistribution": "DEFAULT"
-                },
-                "clusterName": "kafa-cluster",
-                "kafkaVersion": "2.8.0",
-                "numberOfBrokerNodes": 1
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_msk.CfnCluster",
-              "version": "2.178.1"
-            }
-          },
           "PatientManagementCluster": {
             "id": "PatientManagementCluster",
             "path": "localstack/PatientManagementCluster",
@@ -2779,12 +2751,12 @@
                         },
                         "environment": [
                           {
-                            "name": "SPRING_PROFILES_ACTIVE",
-                            "value": "prod"
-                          },
-                          {
                             "name": "AUTH_SERVICE_URL",
                             "value": "http://host.docker.internal:4005"
+                          },
+                          {
+                            "name": "SPRING_PROFILES_ACTIVE",
+                            "value": "prod"
                           }
                         ]
                       }

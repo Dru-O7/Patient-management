@@ -59,7 +59,7 @@ public class LocalStack extends Stack {
         CfnHealthCheck patientDbHealthCheck =
                 createDbHealthCheck(patientServiceDb, "PatientServiceDBHealthCheck");
 
-        CfnCluster mskCluster = createMskCluster();
+//        CfnCluster mskCluster = createMskCluster();
 
         this.ecsCluster = createEcsCluster();
 
@@ -87,7 +87,7 @@ public class LocalStack extends Stack {
                         null,
                         null);
 
-        analyticsService.getNode().addDependency(mskCluster);
+//        analyticsService.getNode().addDependency(mskCluster);
 
         FargateService patientService = createFargateService("PatientService",
                 "patient-service",
@@ -100,7 +100,7 @@ public class LocalStack extends Stack {
         patientService.getNode().addDependency(patientServiceDb);
         patientService.getNode().addDependency(patientDbHealthCheck);
         patientService.getNode().addDependency(billingService);
-        patientService.getNode().addDependency(mskCluster);
+//        patientService.getNode().addDependency(mskCluster);
 
         createApiGatewayService();
     }
